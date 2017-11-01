@@ -8,7 +8,7 @@ module Benchmark
         @@seq += 1
         member = Member.create!(
           email: "user#{@@seq}@example.com",
-          name: "Matching Benchmark #{@@seq}"
+          nickname: "Matching Benchmark #{@@seq}"
         )
       end
 
@@ -19,7 +19,8 @@ module Benchmark
           state: Order::WAIT,
           currency: :btceur,
           origin_volume: attrs[:volume],
-          source: 'Web'
+          source: 'Web',
+          ord_type: 'limit'
         }.merge(attrs))
       end
     end

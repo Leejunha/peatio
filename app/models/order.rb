@@ -15,7 +15,7 @@ class Order < ActiveRecord::Base
   after_commit :trigger
   before_validation :fix_number_precision, on: :create
 
-  validates_presence_of :ord_type, :volume, :origin_volume, :locked, :origin_locked
+  validates_presence_of :ord_type, :volume, :origin_volume #, :locked, :origin_locked
   validates_numericality_of :origin_volume, :greater_than => 0
 
   validates_numericality_of :price, greater_than: 0, allow_nil: false,

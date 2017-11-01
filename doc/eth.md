@@ -23,7 +23,6 @@ copy the geth service file to /etc/systemd/system/geth.service
 
 
     sudo apt install nginx -y fcgiwrap
-    sudo systemctl restart nginx
 
 copy default file to /etc/nginx/sites-enabled/default
 
@@ -38,9 +37,9 @@ copy the cgi files to /var/www/html/cgi-bin and update total.cgi with your usern
     sudo chmod +x /var/www/html/cgi-bin/*
 
 ### Install filter service
-copy total.js to /home/ubuntu
+copy total.js to /var/www
 
-    sudo chown www-data:www-data /home/ubuntu/total.js
+    sudo chown www-data:www-data /var/www/total.js
 don't forget to edit service.rb with your url
 
     sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev nodejs ruby-all-dev ruby
@@ -53,8 +52,6 @@ copy filter.service file to /etc/systemd/system/filter.service
 
     sudo systemctl start filter
     sudo systemctl enable filter
-
-    sudo sh -c "echo 'www-data ALL=(ALL) NOPASSWD: /usr/sbin/service filter restart' >> /etc/sudoers"
 
 You need to create at least one account and use it as a base account for withdrawals 
 

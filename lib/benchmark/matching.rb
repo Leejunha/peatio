@@ -23,7 +23,7 @@ module Benchmark
         puts "\n>> Round #{i}"
         Benchmark.benchmark(Benchmark::CAPTION, 20, Benchmark::FORMAT) do |x|
           @times[:create_members] << x.report("create members") { create_members }
-          @times[:lock_funds]     << x.report("lock funds") { lock_funds }
+          @times[:lock_funds]     << x.report("lock funds") { lock_funds  }
           @times[:create_orders]  << x.report("create orders") { create_orders }
           nil
         end
