@@ -3,7 +3,7 @@ namespace :benchmark do
   desc "In memory matching engine benchmark"
   task :matching => %w(environment) do
     num   = ENV['NUM'] ? ENV['NUM'].to_i : 250
-    round = ENV['ROUND'] ? ENV['ROUND'].to_i : 4
+    round = ENV['ROUND'] ? ENV['ROUND'].to_i : 1
     label = ENV['LABEL'] || Time.now.to_i
 
     puts "\n>> Setup environment (num=#{num} round=#{round})"

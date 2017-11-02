@@ -19,8 +19,6 @@ module Matching
     def trade_with(counter_order, counter_book)
       if counter_order.is_a?(LimitOrder)
         if crossed?(counter_order.price)
-          puts 'crossed'
-          puts counter_order
           trade_price  = counter_order.price
           trade_volume = [volume, counter_order.volume].min
           trade_funds  = trade_price*trade_volume

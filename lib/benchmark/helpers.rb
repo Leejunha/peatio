@@ -51,20 +51,21 @@ module Benchmark
       worker = Worker::Matching.new
 
       @processed = Order.active.count
+
       Order.active.each do |order|
         worker.process({action: 'submit', order: order.to_matching_attributes}, {}, {})
       end
-
       @instructions = AMQPQueue.queues[:trade_executor]
       @matches      = @instructions.size
+
     end
 
     def execute_trades
       t1 = Trade.count
 
-      @instructions.each do |payload|
-        ::Matching::Executor.new(payload).execute!
-      end
+      # @instructions.each do |payload|
+      #   ::Matching::Executor.new(payload).execute!
+      # end
 
       @trades = Trade.count - t1
     end
