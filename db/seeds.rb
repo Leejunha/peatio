@@ -11,6 +11,25 @@ admin_member = Member.find_or_create_by(email: ADMIN_EMAIL)
 admin_member.authentications.build(provider: 'identity', uid: admin_identity.id)
 admin_member.save!
 
+if Rails.env == 'production'
+  INITIAL_BTC = 1000
+  INITIAL_FIAT = 1000000000
+  NORMAL_PASSWORD = '1234qwer'
+  EMAIL_LIST = %w(jysong@cashtree.id robin@cashtree.id kai@cashtree.id george@cashtree.id dallen@cashtree.id sheila@cashtree.id chuljung@cashtree.id danny@cashtree.id)
+
+  EMAIL_LIST.each do |email|
+    identity = Identity.create(email: email, password: NORMAL_PASSWORD, password_confirmation: NORMAL_PASSWORD, is_active: true)
+    member = Member.create(email: identity.email)
+    member.authentications.build(provider: 'identity', uid: foo.id)
+    member.tag_list.add 'vip'
+    member.tag_list.add 'hero'
+    member.accounts.with_currency(:btc).first.amount = INITIAL_BTC
+    member.accounts.with_currency(:cny).first.amount = INITIAL_FIAT
+    member.save
+  end
+
+end
+
 if Rails.env == 'development'
   NORMAL_PASSWORD = 'Pass@word8'
 

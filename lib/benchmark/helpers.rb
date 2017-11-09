@@ -12,10 +12,10 @@ module Benchmark
 
     def lock_funds
       @members[:ask].each do |m|
-        m.get_account(:btc).update_attributes(locked: 100)
+        m.get_account(:btc).update_attributes(locked: 1000)
       end
       @members[:bid].each do |m|
-        m.get_account(:eur).update_attributes(locked: 1000000)
+        m.get_account(:eur).update_attributes(locked: 100000000)
       end
     end
 
@@ -32,13 +32,13 @@ module Benchmark
       # Create asks and bids seperately, so asks will accumulate in memory before get matched
       @members[:ask].each_with_index do |m, i|
         price, volume = price_and_volume[i]
-        o = SweatFactory.make_order(OrderAsk, volume: volume, price: price, member: m)
+        o = SweatFactory.make_order(OrderAsk, volume: volume, price: price, member: m, locked: volume, origin_locked: volume)
         o.save!
         @orders << o
       end
       @members[:bid].each_with_index do |m, i|
         price, volume = price_and_volume[i]
-        o = SweatFactory.make_order(OrderBid, volume: volume, price: price, member: m)
+        o = SweatFactory.make_order(OrderBid, volume: volume, price: price, member: m, locked: volume*price, origin_locked: volume*price)
         o.save!
         @orders << o
       end

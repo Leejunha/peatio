@@ -15,7 +15,7 @@ class Order < ActiveRecord::Base
   after_commit :trigger
   before_validation :fix_number_precision, on: :create
 
-  validates_presence_of :ord_type, :volume, :origin_volume #, :locked, :origin_locked
+  validates_presence_of :ord_type, :volume, :origin_volume , :locked, :origin_locked
   validates_numericality_of :origin_volume, :greater_than => 0
 
   validates_numericality_of :price, greater_than: 0, allow_nil: false,
@@ -59,7 +59,6 @@ class Order < ActiveRecord::Base
 
   def strike(trade)
     raise "Cannot strike on cancelled or done order. id: #{id}, state: #{state}" unless state == Order::WAIT
-
     real_sub, add = get_account_changes trade
     real_fee      = add * fee
     real_add      = add - real_fee
@@ -156,4 +155,9 @@ class Order < ActiveRecord::Base
     required_funds
   end
 
+  def random_string
+    o = [('a'..'z'), ('A'..'Z')].map(&:to_a).flatten
+    string = (0...5).map { o[rand(o.length)] }.join
+    return string
+  end
 end

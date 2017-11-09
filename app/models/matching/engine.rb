@@ -16,7 +16,9 @@ module Matching
 
     def submit(order)
       book, counter_book = orderbook.get_books order.type
+      # puts "==[before match] #{order.id} , #{order.volume}\n"
       match order, counter_book
+      # puts "==[after match] #{order.id} , #{order.volume}\n"
       add_or_cancel order, book
     rescue
       Rails.logger.fatal "Failed to submit order #{order.label}: #{$!}"

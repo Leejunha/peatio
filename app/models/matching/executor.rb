@@ -43,6 +43,8 @@ module Matching
         puts "Failed to execute trade: #{@payload.inspect}"
         raise $!
       end
+    rescue TradeExecutionError
+      # cope with "TradeExecutionError"
     end
 
     def create_trade_and_strike_orders

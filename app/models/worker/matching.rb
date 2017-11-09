@@ -56,7 +56,6 @@ module Worker
     end
 
     def build_order(attrs)
-      # byebug
       ::Matching::OrderBookManager.build_order attrs
     end
 

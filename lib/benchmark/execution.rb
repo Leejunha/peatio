@@ -1,4 +1,5 @@
 require_relative 'amqp_mock'
+require_relative 'matching'
 
 module Benchmark
   class Execution < Matching

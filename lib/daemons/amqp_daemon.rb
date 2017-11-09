@@ -32,6 +32,7 @@ Signal.trap("INT",  &terminate)
 Signal.trap("TERM", &terminate)
 
 workers = []
+
 ARGV.each do |id|
   worker = AMQPConfig.binding_worker(id)
   queue  = ch.queue *AMQPConfig.binding_queue(id)
